@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 2260915130081029009}
   - component: {fileID: 6373222271870556384}
   - component: {fileID: 8142836141389511749}
+  - component: {fileID: 7609600985325945029}
+  - component: {fileID: 3289481715226399329}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +50,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 114
   m_CollisionDetection: 0
 --- !u!65 &8142836141389511749
 BoxCollider:
@@ -63,6 +65,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.67, y: 1.78, z: 0.33}
   m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!95 &7609600985325945029
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669573295650097530}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d17b542ca065d594e8f21b16673bf1b8, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4bca43557ce268646a27cd4563bcf213, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3289481715226399329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669573295650097530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a03afe51649ad14fb159fbb7a904f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runnigSpeed: 10
+  movingSpeed: 10
 --- !u!1001 &1358451397623052078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,7 +169,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d17b542ca065d594e8f21b16673bf1b8,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d17b542ca065d594e8f21b16673bf1b8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d17b542ca065d594e8f21b16673bf1b8,
         type: 3}
