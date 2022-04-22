@@ -11,7 +11,7 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
 
         [SerializeField]
         private float movingSpeed = 5f;
-
+      
         public Rigidbody rb { get; private set; }
         public Animator animator { get; private set; }
         public bool isMoving { get; set; } = false;
@@ -46,7 +46,7 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
                 isMoving = true;
 
             }
-        }
+        }       
     }
 }
 
