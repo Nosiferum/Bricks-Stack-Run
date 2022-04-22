@@ -15,7 +15,7 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
         public Rigidbody rb { get; private set; }
         public Animator animator { get; private set; }
         public bool isMoving { get; set; } = false;
-        //subject to change
+        public bool isFinished { get; set; } = false;
         public List<GameObject> bricks { get; private set; } = new List<GameObject>();
 
         private void Awake() {
@@ -26,7 +26,7 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
 
         private void FixedUpdate() {
 
-            if (isMoving) {
+            if (isMoving && !isFinished) {
 
                 rb.MovePosition(transform.position + (Vector3.forward * runnigSpeed * Time.fixedDeltaTime));
 
@@ -44,7 +44,6 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
 
                 animator.SetBool("isRunning", true);
                 isMoving = true;
-
             }
         }       
     }

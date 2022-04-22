@@ -15,8 +15,7 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Obstacles {
 
                 StartCoroutine(DestoryBricks(other));
                 isEngaged = true;
-            }
-                                                    
+            }                                                    
         }
 
         private IEnumerator DestoryBricks(Collider other) {
