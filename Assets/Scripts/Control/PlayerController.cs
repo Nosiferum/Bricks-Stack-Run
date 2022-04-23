@@ -17,6 +17,9 @@ namespace DogukanKarabiyik.BricksStackRun.Control {
         public bool isMoving { get; set; } = false;
         public bool isFinished { get; set; } = false;
         public List<GameObject> bricks { get; private set; } = new List<GameObject>();
+        public int stackCondition { get; set; } = 1;
+        public int stackConditionCounter { get; set; } = 0;
+        
 
         private void Awake() {
 

@@ -14,6 +14,15 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
         private float endPosZ;
         private float quadPerimeter = 0.5f;
         private float lastBuildPosZ;
+        private float playerPosX;
+        private bool isEngaged = false;
+        private PlayerController player;
+
+
+        private void Awake() {
+
+            player = FindObjectOfType<PlayerController>();
+        }
 
         private void Start() {
 
@@ -22,18 +31,29 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
             lastBuildPosZ = startPosZ;
         }
 
+        private void Update() {
+            
+            if (isEngaged)
+            playerPosX = player.transform.position.x;
+        }
+
         private void OnTriggerEnter(Collider other) {
 
-            if (other.tag == "Player") 
-                StartCoroutine(BuildBridge(other));            
+            if (other.tag == "Player") {
+
+                isEngaged = true;
+                //this code snippet looks like its redundant however, the first update call is not fast enough to get the first X position
+                playerPosX = other.transform.position.x;
+
+                StartCoroutine(BuildBridge(other));
+            }                            
         }
 
         private IEnumerator BuildBridge(Collider other) {
 
-            var player = other.GetComponent<PlayerController>();
             var deltaPos = endPosZ - startPosZ;
             var totalBridgeParts = Mathf.CeilToInt(deltaPos / (bridgePartPrefab.transform.localScale.z * 10));
-                
+                        
                 for (int i = 0; i < totalBridgeParts; i++) {
 
                     //Game Over
@@ -44,14 +64,20 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
 
                     var brick = player.bricks[player.bricks.Count - 1];
                     player.bricks.RemoveAt(player.bricks.Count - 1);
-                    Destroy(brick);
 
-                    var bridgePart = Instantiate(bridgePartPrefab, new Vector3(bridgePartPrefab.transform.position.x, bridgePartPrefab.transform.position.y, lastBuildPosZ + quadPerimeter), Quaternion.identity);
+                    if(player.stackConditionCounter > 0)
+                        player.stackConditionCounter--;
+
+                    Destroy(brick);
+                    
+                    var bridgePart = Instantiate(bridgePartPrefab, new Vector3(playerPosX, bridgePartPrefab.transform.position.y, lastBuildPosZ + quadPerimeter), Quaternion.identity);
                     lastBuildPosZ = bridgePart.transform.position.z + quadPerimeter;
 
-                    yield return new WaitForSeconds(.1f);
+                    yield return new WaitForSeconds(.2f);
                 }                                              
-            }           
+            }
+
+            isEngaged = false;
         }
     }
 }
