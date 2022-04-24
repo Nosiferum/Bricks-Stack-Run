@@ -1259,7 +1259,7 @@ PrefabInstance:
     - target: {fileID: 782659239713818327, guid: f96cebb3e2d9e9f4386a25c4bc7eb620,
         type: 3}
       propertyPath: brickSpawnCount
-      value: 3
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4939280186147958331, guid: f96cebb3e2d9e9f4386a25c4bc7eb620,
         type: 3}
