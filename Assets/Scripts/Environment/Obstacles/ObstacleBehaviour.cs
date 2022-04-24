@@ -23,13 +23,11 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Obstacles {
             var player = other.GetComponent<PlayerController>();
 
             if (player.bricks.Count > 0) {
-
+                                                  
                 var brick = player.bricks[player.bricks.Count - 1];
                 player.bricks.RemoveAt(player.bricks.Count - 1);
-
-                if (player.stackConditionCounter > 0)
-                    player.stackConditionCounter--;
-
+                player.stackConditionCounter--;
+            
                 Destroy(brick);
 
                 yield return new WaitForSeconds(1f);

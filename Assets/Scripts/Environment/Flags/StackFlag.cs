@@ -38,27 +38,27 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
 
                 var brick = Instantiate(brickPrefab, other.transform);
 
-                if (player.stackConditionCounter == 1 || player.stackConditionCounter == 2)
+                if (player.stackConditionCounter % 10 == 1 || player.stackConditionCounter % 10 == 2)
                     player.stackCondition = 1;
-                else if (player.stackConditionCounter == 3)
+                else if (player.stackConditionCounter % 10 == 3 )
                     player.stackCondition = 2;
-                else if (player.stackConditionCounter == 4)
+                else if (player.stackConditionCounter % 10 == 4)
                     player.stackCondition = 3;
-                else if (player.stackConditionCounter == 5)
+                else if (player.stackConditionCounter % 10 == 5)
                     player.stackCondition = 4;
-                else if (player.stackConditionCounter == 6 || player.stackConditionCounter == 7)
+                else if (player.stackConditionCounter % 10 == 6 || player.stackConditionCounter % 10 == 7)
                     player.stackCondition = 5;
-                else if (player.stackConditionCounter == 8)
+                else if (player.stackConditionCounter % 10 == 8)
                     player.stackCondition = 6;
-                else if (player.stackConditionCounter == 9)
+                else if (player.stackConditionCounter % 10 == 9)
                     player.stackCondition = 7;
-                else if (player.stackConditionCounter == 10 || player.stackConditionCounter == 0)
+                else if (player.stackConditionCounter % 10 == 0)
                     player.stackCondition = 8;
 
                 if (player.bricks.Count == 0) {
 
                     player.bricks.Add(brick);
-                    player.stackConditionCounter++;
+                    player.stackConditionCounter = 1;
 
                     yield return new WaitForSeconds(.1f);
                 }
@@ -123,15 +123,15 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
                     }
 
                     else if (player.stackCondition == 8) {
-                                               
-                        brick.transform.localPosition = new Vector3(brick.transform.localPosition.x, brick.transform.localPosition.y + 0.1f, brick.transform.localPosition.z);
-                        player.bricks.Add(brick);
 
-                        player.stackConditionCounter = 1;
+                        brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.y + 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.2f);
+                        brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;                      
                     }
                 }
 
-                yield return new WaitForSeconds(.05f);
+                yield return new WaitForSeconds(.1f);
             }
         }
     }

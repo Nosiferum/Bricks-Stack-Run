@@ -61,12 +61,10 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
                         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 
                     else {
-
+                                                              
                     var brick = player.bricks[player.bricks.Count - 1];
                     player.bricks.RemoveAt(player.bricks.Count - 1);
-
-                    if(player.stackConditionCounter > 0)
-                        player.stackConditionCounter--;
+                    player.stackConditionCounter--;
 
                     Destroy(brick);
                     
