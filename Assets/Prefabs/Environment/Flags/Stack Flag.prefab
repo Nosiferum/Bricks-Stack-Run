@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8853611569354296196}
   - component: {fileID: 2678222064669584590}
   - component: {fileID: 782659239713818327}
+  - component: {fileID: 7156944582645030356}
   - component: {fileID: 4892695013738710024}
   m_Layer: 0
   m_Name: Stack Flag
@@ -110,6 +111,18 @@ MonoBehaviour:
   brickPrefab: {fileID: 5397447760193855168, guid: 73577fe68b25b204bbb0082451a64246,
     type: 3}
   brickSpawnCount: 5
+--- !u!114 &7156944582645030356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8190307917388583625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6408253ff0386fb4c8541f57b55a3706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4892695013738710024
 MonoBehaviour:
   m_ObjectHideFlags: 0
