@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DogukanKarabiyik.BricksStackRun.Control;
 
@@ -7,18 +6,18 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Obstacles {
 
     public class ObstacleBehaviour : MonoBehaviour {
 
-        private bool isEngaged = false;
+        private bool _isEngaged = false;
 
         private void OnTriggerStay(Collider other) {
 
-            if (other.tag == "Player" && !isEngaged) {
+            if (other.CompareTag("Player") && !_isEngaged) {
 
-                StartCoroutine(DestoryBricks(other));
-                isEngaged = true;
+                StartCoroutine(DestroyBricks(other));
+                _isEngaged = true;
             }                                                    
         }
 
-        private IEnumerator DestoryBricks(Collider other) {
+        private IEnumerator DestroyBricks(Collider other) {
 
             var player = other.GetComponent<PlayerController>();
 
@@ -32,7 +31,7 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Obstacles {
 
                 yield return new WaitForSeconds(1f);
 
-                isEngaged = false;
+                _isEngaged = false;
             }
         }
     }

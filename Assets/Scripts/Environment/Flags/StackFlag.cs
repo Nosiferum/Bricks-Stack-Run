@@ -1,46 +1,38 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DogukanKarabiyik.BricksStackRun.Control;
-using TMPro;
 
-namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
+namespace DogukanKarabiyik.BricksStackRun.Environment.Flags
+{
+    public class StackFlag : MonoBehaviour
+    {
+        [SerializeField] private GameObject brickPrefab;
+        [SerializeField] private int brickSpawnCount = 5;
 
-    public class StackFlag : MonoBehaviour {
+        public int GetBrickSpawnCount => brickSpawnCount;
 
-        [SerializeField]
-        private GameObject brickPrefab;
-
-        [SerializeField]
-        private int brickSpawnCount = 5;
-
-        private bool isEngaged = false;
-
-        private void Start() {
-
-            GetComponent<TextMeshPro>().text = "--" + brickSpawnCount + "--";
-        }
-
-        private void OnTriggerEnter(Collider other) {
-
-            if (other.tag == "Player" && !isEngaged) {
-
+        private bool _isEngaged = false;
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") && !_isEngaged)
+            {
                 StartCoroutine(StackBricks(other));
-                isEngaged = true;
+                _isEngaged = true;
             }
         }
-
-        private IEnumerator StackBricks(Collider other) {
-
+        
+        private IEnumerator StackBricks(Collider other)
+        {
             var player = other.GetComponent<PlayerController>();
 
-            for (int i = 0; i < brickSpawnCount; i++) {
-
+            for (int i = 0; i < brickSpawnCount; i++)
+            {
                 var brick = Instantiate(brickPrefab, other.transform);
 
                 if (player.stackConditionCounter % 10 == 1 || player.stackConditionCounter % 10 == 2)
                     player.stackCondition = 1;
-                else if (player.stackConditionCounter % 10 == 3 )
+                else if (player.stackConditionCounter % 10 == 3)
                     player.stackCondition = 2;
                 else if (player.stackConditionCounter % 10 == 4)
                     player.stackCondition = 3;
@@ -55,79 +47,101 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
                 else if (player.stackConditionCounter % 10 == 0)
                     player.stackCondition = 8;
 
-                if (player.bricks.Count == 0) {
-
+                if (player.bricks.Count == 0)
+                {
                     player.bricks.Add(brick);
                     player.stackConditionCounter = 1;
 
                     yield return new WaitForSeconds(.1f);
                 }
 
-                else {
-
-                    if (player.stackCondition == 1) {
-                 
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.3f, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z);
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                      
+                else
+                {
+                    if (player.stackCondition == 1)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.3f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z);
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
                     }
 
-                    else if (player.stackCondition == 2) {
-                     
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.2f);
-                            brick.transform.rotation = Quaternion.Euler(0, 90, 0);
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                   
-
+                    else if (player.stackCondition == 2)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.1f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.2f);
+                        brick.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
                     }
 
-                    else if (player.stackCondition == 3) {
-                     
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.3f);
-                            brick.transform.rotation = Quaternion.Euler(0, 90, 0);
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                     
+                    else if (player.stackCondition == 3)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.3f);
+                        brick.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
                     }
 
-                    else if (player.stackCondition == 4) {
-                     
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.2f);
-                            brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                    
-                    }
-
-                    else if (player.stackCondition == 5) {
-                       
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.3f, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z);
-                            brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;
-                  
-                    }
-
-                    else if (player.stackCondition == 6) {
-                     
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.2f);
-                            brick.transform.rotation = Quaternion.Euler(0, 90, 0);
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                    
-                    }
-
-                    else if (player.stackCondition == 7) {
-                     
-                            brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x, player.bricks[player.bricks.Count - 1].transform.localPosition.y, player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.3f);
-                            brick.transform.rotation = Quaternion.Euler(0, 90, 0);
-                            player.bricks.Add(brick);
-                            player.stackConditionCounter++;                    
-                    }
-
-                    else if (player.stackCondition == 8) {
-
-                        brick.transform.localPosition = new Vector3(player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.y + 0.1f, player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.2f);
+                    else if (player.stackCondition == 4)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.1f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z + 0.2f);
                         brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
                         player.bricks.Add(brick);
-                        player.stackConditionCounter++;                      
+                        player.stackConditionCounter++;
+                    }
+
+                    else if (player.stackCondition == 5)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.3f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z);
+                        brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
+                    }
+
+                    else if (player.stackCondition == 6)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x + 0.1f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.2f);
+                        brick.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
+                    }
+
+                    else if (player.stackCondition == 7)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.3f);
+                        brick.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
+                    }
+
+                    else if (player.stackCondition == 8)
+                    {
+                        brick.transform.localPosition = new Vector3(
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.x - 0.1f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.y + 0.1f,
+                            player.bricks[player.bricks.Count - 1].transform.localPosition.z - 0.2f);
+                        brick.transform.rotation = Quaternion.Euler(0, 0, 0); //redundant, added for readability
+                        player.bricks.Add(brick);
+                        player.stackConditionCounter++;
                     }
                 }
 
@@ -136,7 +150,3 @@ namespace DogukanKarabiyik.BricksStackRun.Environment.Flags {
         }
     }
 }
-
-
-
-    
