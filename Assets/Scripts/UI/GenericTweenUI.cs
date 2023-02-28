@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace ShotMergerClone.UI
+namespace DogukanKarabiyik.BricksStackRun.UI
 {
     [RequireComponent(typeof(RectTransform))]
     public class GenericTweenUI : MonoBehaviour
