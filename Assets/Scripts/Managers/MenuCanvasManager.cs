@@ -1,7 +1,7 @@
 using DogukanKarabiyik.BricksStackRun.Managers;
 using UnityEngine;
 
-namespace ShotMergerClone.Managers
+namespace DogukanKarabiyik.BricksStackRun.Managers
 {
     public class MenuCanvasManager : MonoBehaviour
     {
